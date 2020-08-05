@@ -14,18 +14,88 @@ app.get("/products", (req, res) => {
     res.send(MyList);
   });
 
-//   app.get("/products/:productId", (req, res) => {
-//       MyList.forEach(item => {
-//           if (item.id === req.params.productId) {
-//               res.send(item.productName);
-            
-//           }
-//       });
-//   });
+app.get("/products/:productId", (req, res) => {
+      MyList.forEach( (item) => {
+           if (item.id === req.params.productId) {
+              res.send(item.productName);
+          }
+      });
+  });
 
-//   app.post("/products", (req, res) => {
-//       MyList.push()
-//     res.send(MyList);
-//   });
+  app.post("/products", (req, res) => {
+      MyList.push(req.body);             
+    res.send(req.body);
+  });
+
+  app.put("/products/:productId", (req, res) => {
+    MyList.forEach((item) => {
+        if (item.id === req.params.productId) {
+           MyList.splice(MyList.indexOf(item),1,req.body)
+           res.send(MyList);
+       }
+   });
+});
+
+
+
+app.delete("/products/:productId", (req, res) => {
+    MyList.forEach((item) => {
+        if (item.id === req.params.productId) {
+           MyList.splice(MyList.indexOf(item),1);
+           res.send(MyList);
+       } 
+   });
+});
+
+
 
 app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
