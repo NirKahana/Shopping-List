@@ -1,0 +1,23 @@
+{
+  "name": "Shopping-List",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NirKahana/Shopping-List.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NirKahana/Shopping-List/issues"
+  },
+  "homepage": "https://github.com/NirKahana/Shopping-List#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
