@@ -4,7 +4,7 @@ let shoppingList = [];
 let id = 5;
 
 /** Adds product to the cart
- * @param {*} event the event who set the lsitener
+ * @param {*} event the event who set the listener
  */
 const addProduct = (event) => {
   let product = event.target;
@@ -83,7 +83,7 @@ async function getItemsFromServer() {
   }
 }
 
-/** Adds item to product list of the shop on server 
+/** Adds item to product list of the shop on server
  */
 async function addProductToShop() {
   let newItem = document.querySelector("#newItem");
@@ -114,10 +114,10 @@ function updateCart() {
   createElementWithData("Product", "productSlot", "th", "#headTr");
   createElementWithData("Amount", "amountSlot", "th", "#headTr");
   shoppingList.forEach((item) => {
-    createElementWithData("", `${item.product}row`, "tr", "#cartTable");
-    createElementWithData(item.id, "", "td", `#${item.product}row`);
-    createElementWithData(item.product, "", "td", `#${item.product}row`);
-    createElementWithData(item.amount, "", "td", `#${item.product}row`);
+    createElementWithData("", `${item.product}`, "tr", "#cartTable");
+    createElementWithData(item.id, "", "td", `#${item.product}`);
+    createElementWithData(item.product, "", "td", `#${item.product}`);
+    createElementWithData(item.amount, "", "td", `#${item.product}`);
   });
 }
 
@@ -141,6 +141,22 @@ function printProductsList(products) {
       "#productsShop"
     );
     productDiv.className = "product 1";
+  });
+}
+
+/** Removes item from cart and from server
+ * @param {*} event Event who sets the listener
+ */
+function removeItem(event) {
+  if (event.target.tagName !== "TD") return;
+  let itemRemove = event.target.parentElement;
+  let itemProductName = itemRemove.id;
+  itemRemove.remove();
+  console.log(event.target.id);
+  shoppingList.forEach((item) => {
+    if (item.product === itemProductName) {
+      shoppingList.splice(shoppingList.indexOf(item), 1);
+    }
   });
 }
 
@@ -181,3 +197,4 @@ myQueryAndEventListener("#shopButton", getProductsList);
 myQueryAndEventListener("#cartButton", showCart);
 myQueryAndEventListener("#addButton", addProductToShop);
 document.addEventListener("click", addProduct);
+document.addEventListener("click", removeItem);
