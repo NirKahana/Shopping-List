@@ -1,0 +1,23 @@
+#productsShop {
+  display: inline-block;
+  position: absolute;
+  left: 10%;
+  top: 25%;
+}
+
+#cart {
+  visibility: hidden;
+  display: inline-block;
+  position: absolute;
+  right: 20%;
+  top: 25%;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
