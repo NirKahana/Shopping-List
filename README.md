@@ -1,4 +1,4 @@
-# shopping-list Fullstack app
+# Shopping-list fullstack app
  
 ## backend
 - a GET request to / returns HTML file
