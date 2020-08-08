@@ -1,3 +1,19 @@
+table,
+th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+tr:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+table {
+  border-collapse: collapse;
+}
+
 #productsShop {
   display: inline-block;
   position: absolute;
@@ -14,10 +30,20 @@
 }
 
 .center {
-    margin: 0;
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
+  margin: 0;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.product {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.product:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+}
