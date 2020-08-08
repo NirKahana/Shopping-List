@@ -47,6 +47,15 @@ app.delete("/products/:productId", (req, res) => {
    });
 });
 
+app.delete("/products/", (req, res) => {
+    if (MyList.length > 0) {
+        MyList.splice(0,MyList.length); 
+    res.send(MyList);
+    } else {
+    res.send("The list is empty");
+    }
+});
+
 
 
 app.listen(3000);
