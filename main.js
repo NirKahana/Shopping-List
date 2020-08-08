@@ -28,13 +28,12 @@ async function getList() {
                 // ***
 
                 list.appendChild(currentItem);
-        });        
-        } 
+        });  
+}       
         getList();
 
 async function getItem() {
 const { data } = await axios.get(`http://localhost:3000/products/${myInput.value}`);
-        console.log(data);
         let showItem = document.createElement("li");
         showItem.innerText = data.productName;
         while( list.firstChild ){
@@ -51,11 +50,12 @@ async function deleteAll() {
 } 
 
 async function addProduct(){
+        // let numOfItems = document.querySelectorAll('ul li').length
         const { data } = await axios({
                 method: 'post',
                 url: 'http://localhost:3000/products/',
                 data: {
-                  id: 'Finn',
+                  id: `${myInput.value}`, //// Change Here
                   productName: `${myInput.value}`
                 }
               });
@@ -76,10 +76,9 @@ async function addProduct(){
         myInput.focus();
 }
 
-async function deleteItem() {
-        const { data } = await axios.get(`http://localhost:3000/products`);
-        let x = event.target;
-        console.log(x); //// Work here
+async function deleteItem(event) {
+        let x = event.target               // Change Here
+        console.log("x");
 }
 
 
