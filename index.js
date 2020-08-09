@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+let counter = 0;
 const MyList = [
 
     ];
@@ -15,13 +16,18 @@ app.get("/products/:productId", (req, res) => {
         MyList.forEach( (item) => {
             if (item.id ===  parseInt(req.params.productId)) {
                 console.log("condition is true");
+                // console.log(typeof MyList[0].id);
                res.send(item);
            }
        });
   });
 
   app.post("/products", (req, res) => {
-      req.body.id = (Math.floor(Math.random() * 100) + 1)
+      //
+    //   let uniqueID = checkTheList();
+      //
+      counter++;
+      req.body.id = counter;
       console.log(req.body.id);
       MyList.push(req.body);             
     res.send(req.body);
@@ -29,7 +35,7 @@ app.get("/products/:productId", (req, res) => {
 
   app.put("/products/:productId", (req, res) => {
     MyList.forEach((item) => {
-        if (item.id === req.params.productId) {
+        if (item.id === parseInt(req.params.productId)) {
            MyList.splice(MyList.indexOf(item),1,req.body)
            res.send(MyList);
        }
@@ -63,6 +69,11 @@ app.listen(3000);
 
 
 
+
+
+
+    
+    
 
 
 

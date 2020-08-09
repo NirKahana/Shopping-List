@@ -21,11 +21,15 @@ async function getList() {
                 idSpan.innerText = product.id;
                 itemText.innerText = product.productName;
                 let deleteButton = document.createElement("button");
+                let editButton = document.createElement("button");
                 deleteButton.innerHTML = "Delete";
+                editButton.innerHTML = "Edit";
                 currentItem.appendChild(itemText);
                 currentItem.appendChild(idSpan);
                 currentItem.appendChild(deleteButton);
+                currentItem.appendChild(editButton);
                 deleteButton.addEventListener("click", deleteItem);
+                editButton.addEventListener("click", editItem);
                 list.appendChild(currentItem);
         });  
 }       
@@ -36,18 +40,30 @@ async function getItem() {
 const { data } = await axios.get(`http://localhost:3000/products/${myInput.value}`);
         let listAsArray = list.querySelectorAll("li");
         console.log(listAsArray);
-        for (i = 0; i < list.length; i++) {
-                if (listAsArray[i].querySelectorAll("span")[1].innerHTML === myInput.value) {
-                        console.log("Hello");   
-                } else {
-                        console.log("No such item")
+        let showItem;
+        console.log(showItem);
+        for (let i = 0; i < listAsArray.length; i++) {
+                if(listAsArray[i].querySelectorAll("span")[1].innerText === myInput.value) {
+                console.log("condition is true");
+                showItem = listAsArray[i];
+                console.log(showItem);
                 }
-                
+        } if (showItem === undefined) {
+               console.log("no item found"); 
+               showItem = document.createElement("li");
+               showItem.innerText = "no item found";
         }
+
+        
         while( list.firstChild ){
                 list.removeChild( list.firstChild );
               }
-        // list.appendChild(showItem); 
+        list.appendChild(showItem);
+        //
+        // need to create a return button
+        //
+        myInput.value = "";
+        myInput.focus();
 } 
 
 
@@ -72,15 +88,20 @@ async function addProduct(){
         let idSpan = document.createElement("span");
         idSpan.setAttribute("class", "id");
         let deleteButton = document.createElement("button");
+        let editButton = document.createElement("button");
 
         textSpan.innerText = data.productName;   
         idSpan.innerText = data.id;   
         deleteButton.innerHTML = "Delete";
+        editButton.innerHTML = "Edit";
         deleteButton.addEventListener("click", deleteItem);
+        editButton.addEventListener("click", editItem);
+
 
         newLi.appendChild(textSpan);
         newLi.appendChild(idSpan);
         newLi.appendChild(deleteButton);
+        newLi.appendChild(editButton);
         list.appendChild(newLi)
 
         myInput.value = "";
@@ -100,18 +121,34 @@ async function deleteItem(event) {
         console.log(clickedButton.parentElement);
         clickedButton.parentElement.remove();
 }
-async function updateProduct() {
+async function updateProduct(event) {
         let clickedButton = event.target;
         let requiredID = clickedButton.parentElement.getElementsByTagName('span')[1].innerText;
+        /// ######### change here
+        let newName = clickedButton.parentElement.getElementsByTagName('input')[0].value;
         const { data } = await axios({
-                method: 'post',
+                method: 'put',
                 url: `http://localhost:3000/products/${requiredID}`,
                 data: {
-                //   productName: // needs to be changed
+                  productName: newName,  // needs to be changed
                   id: parseInt(requiredID)
                 }
               });
-
+             
+        // update screen and remove popInput and saveButton
+        clickedButton.parentElement.getElementsByTagName('span')[0].innerText = newName;
+        clickedButton.parentElement.getElementsByTagName('input')[0].remove();
+        clickedButton.remove();
+        //
+}
+function editItem(event) {
+        let popInput = document.createElement("input");
+        let saveButton = document.createElement("button");
+        saveButton.innerHTML = "Save";
+        event.target.parentElement.appendChild(popInput);
+        event.target.parentElement.appendChild(saveButton);
+        saveButton.addEventListener("click", updateProduct)
+        
 }
 
 
