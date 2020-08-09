@@ -11,15 +11,18 @@ app.get("/products", (req, res) => {
   });
 
 app.get("/products/:productId", (req, res) => {
-      MyList.forEach( (item) => {
-           if (item.id === req.params.productId) {
-               console.log("hello");
-              res.send(item);
-          }
-      });
+
+        MyList.forEach( (item) => {
+            if (item.id ===  parseInt(req.params.productId)) {
+                console.log("condition is true");
+               res.send(item);
+           }
+       });
   });
 
   app.post("/products", (req, res) => {
+      req.body.id = (Math.floor(Math.random() * 100) + 1)
+      console.log(req.body.id);
       MyList.push(req.body);             
     res.send(req.body);
   });
@@ -37,7 +40,7 @@ app.get("/products/:productId", (req, res) => {
 
 app.delete("/products/:productId", (req, res) => {
     MyList.forEach((item) => {
-        if (item.id === req.params.productId) {
+        if (item.id === parseInt(req.params.productId)) {
            MyList.splice(MyList.indexOf(item),1);
            res.send(MyList);
        } 
